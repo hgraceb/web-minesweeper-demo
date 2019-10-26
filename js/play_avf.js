@@ -12,6 +12,32 @@ var xmlhttp=null;
 $(window).on('load', function(){
   loadVideo("Hu En Bin_Exp_40.63(3bv104).avf");
 })
+//背景图片加载
+function background_reload(){
+    if(window.orientation==0||window.orientation==180){//手机端竖屏时背景长宽比不同
+        var jpg_count=2;//竖屏jpg类型背景数量
+        var png_count=0;//竖屏png类型背景数量
+        var image_type=Math.random()>(png_count/(png_count+jpg_count))?'.jpg':'.png';//随机选择背景图片类型
+        var image_order=image_type=='.jpg'?Math.floor(Math.random()*jpg_count+1):Math.floor(Math.random()*png_count+1);
+        var mobile='';
+        if((image_type=='.jpg'&&image_order<=jpg_count)||(image_type=='.png'&&image_order<=png_count)){
+            document.getElementById('backgroung_image').getElementsByTagName('img')[0].src='image/mobile/background_0'+image_order+image_type;
+            console.log('background_0'+image_order+image_type);
+        }
+        // document.getElementById('backgroung_image').getElementsByTagName('img')[0].src='image/mobile/background_01.jpg';
+        return;
+    }
+    var jpg_count=8;//横屏jpg类型背景数量
+    var png_count=0;//横屏png类型背景数量
+    var image_type=Math.random()>(png_count/(png_count+jpg_count))?'.jpg':'.png';//随机选择背景图片类型
+    var image_order=image_type=='.jpg'?Math.floor(Math.random()*jpg_count+1):Math.floor(Math.random()*png_count+1);
+    var mobile='';
+    if((image_type=='.jpg'&&image_order<=jpg_count)||(image_type=='.png'&&image_order<=png_count)){
+        document.getElementById('backgroung_image').getElementsByTagName('img')[0].src='image/computer/background_'+image_order+image_type;
+        console.log('background_'+image_order+image_type);
+    }
+    // document.getElementById('backgroung_image').getElementsByTagName('img')[0].src='image/mobile/background_1.jpg';
+}
 function loadVideo(name){
 
   if (window.XMLHttpRequest){
@@ -76,6 +102,7 @@ function analyze_video(name,selectedFile){
     }
 }
 function playAvfVideo(result){
+    background_reload();
     reset();
     //当读取完成后回调这个函数,然后此时文件的内容存储到了result中,直接操作即可
     // console.log(result);
